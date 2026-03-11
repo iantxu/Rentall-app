@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BikeRent Pro | Inventory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-50 font-sans text-slate-900">
+
+    <div class="max-w-2xl mx-auto p-6 md:p-12">
+        <header class="mb-10 flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-extrabold text-blue-700 tracking-tight">BikeRent Pro</h1>
+                <p class="text-slate-500">Fleet Management</p>
+            </div>
+            <i data-lucide="bike" class="w-10 h-10 text-blue-600"></i>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 text-center">
+            <div class="card p-6 bg-white rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex justify-center gap-2 text-slate-500 mb-2 font-medium">
+                    <i data-lucide="circle-dot" class="w-4 h-4 text-blue-500"></i> Classic
+                </div>
+                <div class="text-4xl font-bold" id="classic-count">10</div>
+            </div>
+            <div class="card p-6 bg-white rounded-2xl shadow-sm border border-slate-200">
+                <div class="flex justify-center gap-2 text-slate-500 mb-2 font-medium">
+                    <i data-lucide="zap" class="w-4 h-4 text-yellow-500"></i> Electric
+                </div>
+                <div class="text-4xl font-bold" id="electric-count">5</div>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
+            <h2 class="text-xl font-bold mb-6">New Rental</h2>
+            <form id="rental-form" class="space-y-5">
+                <div>
+                    <label class="label">Bike Type</label>
+                    <select id="bike-type" class="input-field">
+                        <option value="classic">Classic Bike</option>
+                        <option value="electric">Electric Bike</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="label">Duration</label>
+                    <select id="duration" class="input-field">
+                        <option value="2">2 Hour Tour</option>
+                        <option value="4">Half Day (4h)</option>
+                        <option value="8">Full Day (8h)</option>
+                        <option value="24">24 Hours</option>
+                        <option value="48">2-Day</option>
+                        <option value="72">3-Day</option>
+                        <option value="168">Full Week</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="label">Start Time (10am - 7pm)</label>
+                    <input type="datetime-local" id="start-time" class="input-field" required>
+                </div>
+                <button type="submit" class="btn-primary">Confirm Rental</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
