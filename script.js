@@ -1,48 +1,64 @@
-/* Custom utility classes for a cleaner HTML file */
-.input-field {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #f8fafc; /* slate-50 */
-    border: 1px solid #e2e8f0; /* slate-200 */
-    border-radius: 0.75rem;
-    outline: none;
-    transition: all 0.2s;
+lucide.createIcons();
+
+// SETTINGS
+const MAX_CLASSIC = 10;
+const MAX_ELECTRIC = 5;
+let bookings = []; // This stores all confirmed rentals
+
+// Navigation Logic
+function showPage(page) {
+    document.getElementById('page-booking').classList.toggle('hidden', page !== 'booking');
+    document.getElementById('page-calendar').classList.toggle('hidden', page !== 'calendar');
+    if(page === 'calendar') calendar.render(); 
 }
 
-.input-field:focus {
-    border-color: #3b82f6; /* blue-500 */
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
-}
+// Initialize Calendar
+const calendarEl = document.getElementById('calendar');
+const calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek' },
+    events: [] // Will be populated from bookings array
+});
 
-.label {
-    display: block;
-    font-size: 0.875rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
+// Booking Logic
+document.getElementById('rental-form').addEventListener('submit', (e) => {
+    e.preventDefault();
 
-.btn-primary {
-    width: 100%;
-    background-color: #2563eb;
-    color: white;
-    font-weight: 700;
-    padding: 1rem;
-    border-radius: 0.75rem;
-    transition: transform 0.1s, background-color 0.2s;
-}
+    const type = document.getElementById('bike-type').value;
+    const hours = parseInt(document.getElementById('duration').value);
+    const start = new Date(document.getElementById('start-time').value);
+    const end = new Date(start.getTime() + (hours * 60 * 60 * 1000));
+    const limit = (type === 'classic') ? MAX_CLASSIC : MAX_ELECTRIC;
 
-.btn-primary:hover {
-    background-color: #1d4ed8;
-}
+    // 1. Business Hours Check
+    if (start.getHours() < 10 || start.getHours() >= 19) {
+        alert("Select a time between 10:00 AM and 7:00 PM");
+        return;
+    }
 
-.btn-primary:active {
-    transform: scale(0.98);
-}
+    // 2. Overbooking Check (The "Brain")
+    const overlapping = bookings.filter(b => {
+        return b.type === type && (start < b.end && end > b.start);
+    });
 
-.card {
-    transition: transform 0.2s;
-}
+    if (overlapping.length >= limit) {
+        alert(`❌ SORRY: All ${type} bikes are already booked for this time slot.`);
+        return;
+    }
 
-.card:hover {
-    transform: translateY(-2px);
-}
+    // 3. Success - Save Booking
+    const newEvent = {
+        title: `${type.toUpperCase()} Bike Rental`,
+        start: start,
+        end: end,
+        type: type,
+        backgroundColor: type === 'electric' ? '#eab308' : '#3b82f6',
+        borderColor: 'transparent'
+    };
+
+    bookings.push(newEvent);
+    calendar.addEvent(newEvent);
+    
+    alert(`✅ Booked! You are user #${overlapping.length + 1} for this slot.`);
+    showPage('calendar');
+});
