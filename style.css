@@ -1,17 +1,13 @@
-/* Custom utility classes for a cleaner HTML file */
-.input-field {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #f8fafc; /* slate-50 */
-    border: 1px solid #e2e8f0; /* slate-200 */
-    border-radius: 0.75rem;
-    outline: none;
-    transition: all 0.2s;
+/* Custom Styles */
+.nav-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #64748b;
+    transition: color 0.2s;
 }
 
-.input-field:focus {
-    border-color: #3b82f6; /* blue-500 */
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+.nav-link:hover {
+    color: #2563eb;
 }
 
 .label {
@@ -19,6 +15,21 @@
     font-size: 0.875rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
+    color: #334155;
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    outline: none;
+}
+
+.input-field:focus {
+    border-color: #3b82f6;
+    ring: 2px solid #bfdbfe;
 }
 
 .btn-primary {
@@ -28,21 +39,21 @@
     font-weight: 700;
     padding: 1rem;
     border-radius: 0.75rem;
-    transition: transform 0.1s, background-color 0.2s;
+    margin-top: 1rem;
+    transition: all 0.2s;
 }
 
 .btn-primary:hover {
     background-color: #1d4ed8;
+    transform: translateY(-1px);
 }
 
-.btn-primary:active {
-    transform: scale(0.98);
+/* FullCalendar Customization */
+.fc-header-toolbar {
+    margin-bottom: 1.5rem !important;
 }
 
-.card {
-    transition: transform 0.2s;
-}
-
-.card:hover {
-    transform: translateY(-2px);
+.fc-button-primary {
+    background-color: #2563eb !important;
+    border: none !important;
 }
